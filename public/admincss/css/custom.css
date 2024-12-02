@@ -1,0 +1,31 @@
+/* your styles go here */
+.div_deg 
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+}
+
+.div_deg label
+{
+    display: inline-block;
+    width: 200px;
+    font-size: 18px!important;
+    color: white!important;
+}
+
+.div_deg textarea
+{
+    width: 450px;
+    height: 80px;
+}
+
+.input_deg
+{
+    padding: 15px;
+}
+
+.tab-content .active {
+  display: table;
+}
