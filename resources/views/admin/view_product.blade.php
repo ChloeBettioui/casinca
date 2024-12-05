@@ -22,10 +22,9 @@
                 <th>Description</th>
                 <th>Catégorie</th>
                 <th>Prix</th>
-                <th>Poids</th>
                 <th>Image</th>
                 <th>Modifier</th>
-                <th>Supprimer</th>
+                <th>Désactiver</th>
               </tr>
               @foreach ($product as $products)
               <tr>
@@ -33,7 +32,6 @@
                   <td>{{$products->description}}</td>
                   <td>{{$products->category}}</td>
                   <td>{{$products->price}}</td>
-                  <td>{{$products->poids}}</td>
                   <td>
                       <img height="80" src="products/{{$products->image}}">
                   </td>
@@ -43,8 +41,8 @@
                     </a>
                   </td>
                   <td>
-                    <a class="btn btn-danger" onclick="confirmation(event)" href="{{url('delete_product', $products->id)}}">
-                      <i class="fa fa-trash"></i>
+                    <a class="btn btn-danger" onclick="confirmation(event)" href="{{url('desactiver_product', $products->id)}}">
+                      {{$products->actif ? "Actif" : "Inactif"}}
                     </a>
                   </td>
               </tr>
@@ -64,8 +62,7 @@
         var urlToRedirect = ev.currentTarget.getAttribute('href');
         console.log(urlToRedirect);
         swal({
-          title:"Are you sure to delete this",
-          text:"This delete will be permanent",
+          title:"Are you sure to change this status",
           icon:"warning",
           buttons:true,
           dangerMode:true,

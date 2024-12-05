@@ -10,6 +10,7 @@ use App\Models\Composer;
 use App\Models\Message;
 use App\Models\Product;
 use App\Models\User;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class AdminController extends Controller {
 
@@ -88,8 +89,8 @@ class AdminController extends Controller {
         $data->title = $request->title;
         $data->description = $request->description;
         $data->price = $request->price;
-        $data->poids = $request->poids;
         $data->category = $request->category;
+        $data->actif = $request->actif == "oui" ? True : False;
         $image = $request->image;
         if($image)
         {
@@ -103,18 +104,23 @@ class AdminController extends Controller {
     }
 
     public function view_product() {
-        $product = Product::paginate(5);
+        $product = Product::paginate(10);
         $search = '';
         return view('admin.view_product',compact('product', 'search'));
     }
     
-    public function delete_product($id) {
+    public function desactiver_product($id) {
         $data = Product::find($id);
-        $this->delete_image($data->image, 'products');
-        $data->delete();
-        toastr()->timeout(10000)->closeButton()->addSuccess('Produit supprimé avec succès');
+        if($data->actif) {
+            $data->actif = False;
+            $data->save();
+            toastr()->timeout(10000)->closeButton()->addSuccess('Produit désactivé avec succès');
+        } else {
+            $data->actif = True;
+            $data->save();
+            toastr()->timeout(10000)->closeButton()->addSuccess('Produit activé avec succès');
+        }
         return redirect()->back();
-    
     }
 
     public function edit_product($id) {
@@ -128,8 +134,8 @@ class AdminController extends Controller {
         $data->title = $request->title;
         $data->description = $request->description;
         $data->price = $request->price;
-        $data->poids = $request->poids;
         $data->category = $request->category;
+        $data->actif = $request->actif == "oui" ? True : False;
         $image = $request->image;
         if($image)
         {
@@ -148,7 +154,7 @@ class AdminController extends Controller {
         $product = Product::where('title', 'LIKE', '%'.$search.'%')
                 ->orWhere('description', 'LIKE', '%'.$search.'%')
                 ->orWhere('category', 'LIKE', '%'.$search.'%')
-                ->paginate(5);
+                ->paginate(10);
         return view('admin.view_product', compact('product', 'search'));
     }
     // select * from `products` where `title` LIKE '%cr%' or `description` LIKE '%cr%' limit 5

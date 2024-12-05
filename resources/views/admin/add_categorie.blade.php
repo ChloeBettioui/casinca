@@ -12,7 +12,7 @@
     <div class="page-content">
       <div class="page-header">
         <div class="container-fluid">
-          <h1 style="color:white;">Ajouter un catégorie</h1>
+          <h1 style="color:white;">Ajouter une catégorie</h1>
           <div class="div_deg">
             <form action="{{url('upload_categorie')}}" method="post" enctype="multipart/form-data">
               @csrf

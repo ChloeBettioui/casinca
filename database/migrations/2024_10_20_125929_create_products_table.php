@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->double('price')->nullable();
             $table->string('category')->nullable();
-            $table->string('poids')->nullable();
+            $table->boolean('actif');
             $table->timestamps();
         });
     }

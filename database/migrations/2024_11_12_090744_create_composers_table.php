@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('composers', function (Blueprint $table) {
             $table->id();
             $table->int('quantite');
+            $table->double('prix')->nullable();
             $table->unsignedBigInteger('commande_id');
             $table->unsignedBigInteger('product_id');
             $table->foreign('commande_id')->references('id')->on('commandes')->onDelete('cascade');

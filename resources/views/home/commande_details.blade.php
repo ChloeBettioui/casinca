@@ -44,12 +44,12 @@
                         @foreach ($articles as $article)
                         <tr>
                         <td>{{$article->product->title}}</td>
-                        <td>{{$article->product->price}} €</td>
+                        <td>{{$article->prix}} €</td>
                         <td>
                             <img width="150" src="/products/{{$article->product->image}}">
                         </td>
                         <td>{{$article->quantite}}</td>
-                        <td>{{$article->product->price * $article->quantite}} €</td>
+                        <td>{{$article->prix * $article->quantite}} €</td>
                         </tr>
                         @endforeach
                     </table>

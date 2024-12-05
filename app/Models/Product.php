@@ -15,6 +15,6 @@ class Product extends Model
         'image',
         'price',
         'category',
-        'poids'
+        'actif'
     ];
 }

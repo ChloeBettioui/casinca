@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\Commande;
 use App\Models\Message;
 use App\Models\User;
-use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -22,7 +21,11 @@ class HomeController extends Controller {
         $products = Product::all()->count();
         $commande = Commande::all()->count();
         $delivered = Commande::where('statut','Récupérée')->get()->count();
-        $deliveredPourCent = $delivered/$commande*100;
+        if ($delivered) {
+            $deliveredPourCent = $delivered/$commande*100;
+        } else {
+            $deliveredPourCent = 0;
+        }
         $message = Message::all()->count();
         $annonce = Annonce::all()->count();
         return view('admin.index',compact('user','products','commande','delivered', 'deliveredPourCent','message', 'annonce'));
@@ -32,12 +35,6 @@ class HomeController extends Controller {
         $annonces = Annonce::where('actif', 'LIKE', '1')->get();;
         $count = $this->panierController->count_panier();
         return view('home.index',compact('annonces','count'));
-    }
-
-    public function login_home() {
-        $products = Product::all();
-        $count = $this->panierController->count_panier();
-        return view('home.index',compact('products','count'));
     }
 
     public function contact() {

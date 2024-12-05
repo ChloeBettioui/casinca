@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Commande;
 use App\Models\Composer;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +19,7 @@ class PanierController extends Controller {
     public function get_commandes($userid) {
         return Commande::where('user_id',$userid)
                         ->where('statut', '!=', "Panier en cours")
+                        ->orderBy('date_recuperation', 'asc')
                         ->get();
     }
 
@@ -29,6 +31,10 @@ class PanierController extends Controller {
         return Composer::where('commande_id',$panierid)
                         ->where('product_id', $produitid)
                         ->first();
+    }
+
+    public function get_produit_id($id) {
+        return Product::find($id);
     }
 
     public function count_panier() {
@@ -51,7 +57,7 @@ class PanierController extends Controller {
         $composers = $this->get_composer($panierid);
         $value = 0;
         foreach ($composers as $composer) {
-            $prix = $composer->quantite*$composer->product->price;
+            $prix = $composer->quantite*$composer->prix;
             $value += $prix;
         }
         return $value;
@@ -105,11 +111,12 @@ class PanierController extends Controller {
         return view('home.panier', compact('count', 'panier', 'articles'));
     }
 
-    public function create_composer($produitid, $panierid) {
+    public function create_composer($produitid, $panierid, $prix) {
         $composer = new Composer();
         $composer->commande_id = $panierid;
         $composer->product_id = $produitid;
         $composer->quantite = 1;
+        $composer->prix = $prix;
         $composer->save();
     }
 
@@ -139,16 +146,17 @@ class PanierController extends Controller {
     public function update_panier($produitid) {
         $user = Auth::user();
         $panier = $this->get_panier($user->id);
-        if (!$panier) {
+        $produit = $this->get_produit_id($produitid);
+        if (!$panier){
             $this->create_panier($user->id);
             $newpanier = $this->get_panier($user->id);
-            $this->create_composer($produitid, $newpanier->id);
+            $this->create_composer($produitid, $newpanier->id, $produit->price);
         } else {
             $composer = $this->get_composer_id($produitid, $panier->id);
             if($composer) {
                 $this->add_composer($composer->id);
             } else {
-                $this->create_composer($produitid, $panier->id);
+                $this->create_composer($produitid, $panier->id, $produit->price);
             }
         }
         return redirect()->back();

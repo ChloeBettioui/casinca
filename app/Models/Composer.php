@@ -10,7 +10,8 @@ class Composer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'quantite'
+        'quantite',
+        'prix'
     ];
 
     public function user()

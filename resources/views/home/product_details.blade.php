@@ -26,13 +26,9 @@
                             </h6>
                         </div>
                         <div class="detail-box">
-                            <h6>Poids :
-                                <span>{{$product->poids}} gr</span>
-                            </h6>
-                        </div>
-                        <div class="detail-box">
-                            <h6>Description :
-                                <p>{{$product->description}}</p>
+                            <h6>
+                                <p>Description :</p>
+                                <textearea>{{$product->description}}</textarea>
                             </h6>
                         </div>
                         <div class="detail-box">

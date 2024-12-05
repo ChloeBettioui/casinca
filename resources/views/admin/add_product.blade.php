@@ -29,8 +29,13 @@
                   <input type="float" step="0.01" name="price">
               </div>
               <div class="input_deg">
-                  <label>Poids</label>
-                  <input type="number" name="poids">gr
+                <label>Actif</label>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" id="oui" name="actif" value="oui" checked>Oui
+                  <label class="form-check-label" for="oui"></label>
+                  <input type="radio" class="form-check-input" id="non" name="actif" value="non">Non
+                  <label class="form-check-label" for="non"></label>
+                </div>
               </div>
               <div class="input_deg">
                   <label>Catégorie</label>

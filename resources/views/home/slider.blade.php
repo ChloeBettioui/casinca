@@ -18,7 +18,7 @@
       </div>
       <div class="row justify-content-center">
         @foreach ($annonces as $annonce)
-        <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="col-sm-6 col-md-4 col-lg-4">
           <div class="box">
             <div class="img-box">
               <img src="/annonces/{{$annonce->image}}"alt=""/>
