@@ -2,6 +2,7 @@
 <html>
   <head>
     @include('home.css')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     @include('home.header')
@@ -26,7 +27,7 @@
                 <div class="btn-box">
                   <a href="{{url('produit_details',$product->id)}}">Détails</a>
                   <br>
-                  <a href="{{url('update_panier', $product->id)}}">
+                  <a class="ajoutpanier" href="#" data-id="{{$product->id}}">
                     <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                   </a>
                 </div>
@@ -38,5 +39,53 @@
     </section>
     
     @include('home.footer')
+  
+    <!-- JavaScript files-->
+    <script>
+      const addToCartLinks = document.querySelectorAll('.ajoutpanier');
+
+      // Ajouter un écouteur d'événement à chaque lien
+      addToCartLinks.forEach(link => {
+        link.addEventListener('click', async (event) => {
+          event.preventDefault(); // Empêche le comportement par défaut
+          // Récupérer l'ID du produit depuis l'attribut data-id
+          const productId = event.target.getAttribute('data-id');
+
+          try {
+            const response = await fetch(`/update_panier/${productId}`);
+
+            // Réponse à afficher
+            const data = await response.json();
+            if (data.error) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: data.error
+              }).then(() => {
+                // Actualiser la page après fermeture de la popup
+                window.location.reload();
+              });
+            } else {
+              Swal.fire({
+                icon: 'success',
+                title: 'Succès',
+                text: data.success
+              }).then(() => {
+                window.location.reload();
+              });
+            }
+          } catch (error) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Erreur',
+              text: 'Une erreur est survenue. Veuillez réessayer.'
+            }).then(() => {
+              window.location.reload();
+            });
+            console.error('Erreur:', error);
+          }
+        });
+      });
+    </script>
   </body>
 </html>
