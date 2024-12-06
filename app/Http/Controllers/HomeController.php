@@ -47,14 +47,15 @@ class HomeController extends Controller {
     }
 
     public function product() {
-        $products = Product::all();
+        $products = Product::where('actif', '=', true)->get();
         $count = $this->panierController->count_panier();
         $category= $this->getCategory();
         return view('home.product', compact('products','category', 'count'));
     }
 
     public function product_filter($id) {
-        $products = Product::where('category', 'LIKE', '%'.$id.'%')->get();
+        $products = Product::where('category', 'LIKE', '%'.$id.'%')
+                            ->where('actif', '=', true)->get();
         $count = $this->panierController->count_panier();
         $category= $this->getCategory();
         return view('home.product', compact('products','category', 'count'));
