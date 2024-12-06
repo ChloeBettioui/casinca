@@ -62,7 +62,7 @@
         var urlToRedirect = ev.currentTarget.getAttribute('href');
         console.log(urlToRedirect);
         swal({
-          title:"Are you sure to change this status",
+          title:"Etes vous sur de vouloir changer le statut ?",
           icon:"warning",
           buttons:true,
           dangerMode:true,
