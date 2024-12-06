@@ -147,6 +147,11 @@ class PanierController extends Controller {
         $user = Auth::user();
         $panier = $this->get_panier($user->id);
         $produit = $this->get_produit_id($produitid);
+        if (!$produit->actif) {
+            return response()->json([
+                'error' => 'Le produit n\'est plus disponible.'
+            ], 400);
+        }
         if (!$panier){
             $this->create_panier($user->id);
             $newpanier = $this->get_panier($user->id);
@@ -159,6 +164,8 @@ class PanierController extends Controller {
                 $this->create_composer($produitid, $panier->id, $produit->price);
             }
         }
-        return redirect()->back();
+        return response()->json([
+            'success' => 'Le produit a été ajouté au panier avec succès.',
+        ]);
     }
 }

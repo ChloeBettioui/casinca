@@ -44,6 +44,11 @@ a:focus {
   padding-bottom: 90px;
 }
 
+.swal2-popup {
+  z-index: -1;
+  width: 300px !important;
+}
+
 .heading_container {
   display: -webkit-box;
   display: -ms-flexbox;
