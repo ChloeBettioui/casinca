@@ -124,6 +124,7 @@ class PanierController extends Controller {
         $data = Composer::find($composerid); 
         $data->quantite++;
         $data->save();
+        return redirect()->back();
     }
 
     public function delete_composer($composerid) {

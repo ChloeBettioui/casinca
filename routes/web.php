@@ -21,6 +21,7 @@ Route::get('produit_details/{id}',[HomeController::class,'product_details']);
 // panier
 Route::get('update_panier/{id}',[PanierController::class,'update_panier'])->middleware(['auth','verified']);
 Route::get('panier',[PanierController::class,'index'])->middleware(['auth','verified']);
+Route::get('add_composer/{id}',[PanierController::class,'add_composer'])->middleware(['auth','verified']);
 Route::get('delete_composer/{id}',[PanierController::class,'delete_composer'])->middleware(['auth','verified']);
 Route::get('substract_composer/{id}',[PanierController::class,'substract_composer'])->middleware(['auth','verified']);
 // commandes

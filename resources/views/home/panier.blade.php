@@ -26,16 +26,16 @@
             @foreach ($articles as $article)
             <tr>
               <td>{{$article->product->title}}</td>
-              <td>{{$article->prix}} €</td>
+              <td>{{number_format($article->prix,2)}} €</td>
               <td>
                 <img width="150" src="/products/{{$article->product->image}}">
               </td>
               <td  class="btn-box">
                 <a href="{{url('substract_composer', $article->id)}}">-</a>
                 {{$article->quantite}}
-                <a href="{{url('update_panier', $article->product->id)}}">+</a>
+                <a href="{{url('add_composer', $article->id)}}">+</a>
               </td>
-              <td>
+              <td class="d-flex justify-content-center">
                 <a class="btn btn-danger" href="{{url('delete_composer', $article->id)}}">
                   <i class="fa fa-trash"></i>
                 </a>
@@ -60,7 +60,7 @@
           </div>
           <div>
             <label>Total</label>
-            <input type="text" name="prix" value="{{$value}} €" disabled>
+            <input type="text" name="prix" value="{{number_format($value,2)}} €" disabled>
           </div>
           <div class="btn-box">
             <input type="submit" value="Commander">
