@@ -32,9 +32,9 @@
                             <textearea>{{$product->description}}</textarea>
                         </h6>
                     </div>
-                    <div class="detail-box">
+                    <div class="detail-box align-items-center">
                         <h6>Prix :
-                            <span>{{$product->price}}€</span>
+                            <span>{{number_format($product->price,2)}}€</span>
                         </h6>
                         <div class="btn-box">
                             <a id="ajoutpanier" href="#" data-id="{{$product->id}}">

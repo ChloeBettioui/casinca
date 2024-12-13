@@ -17,12 +17,9 @@
                 <div class="img-box">
                   <img src="/products/{{$product->image}}" alt="{{$product->title}}">
                 </div>
-                <div class="detail-box">
-                  <h6>{{$product->title}}</h6>
-                  <h6>
-                    Prix :
-                    <span>{{$product->price}} €</span>
-                  </h6>
+                <div class="row detail-box">
+                  <h6 class="col-sm-12 col-md-6 col-lg-6">{{$product->title}}</h6>
+                  <h6 class="col-sm-12 col-md-5 col-lg-6 pr-0">Prix : <span>{{number_format($product->price,2)}}€</span></h6>
                 </div>
                 <div class="btn-box">
                   <a href="{{url('produit_details',$product->id)}}">Détails</a>
