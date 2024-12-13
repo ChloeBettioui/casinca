@@ -58,6 +58,7 @@ route::get('search_product',[AdminController::class,'search_product'])->middlewa
 // Commandes routes
 Route::get('view_commandes',[AdminController::class,'view_commandes'])->middleware(['auth', 'admin']);
 Route::get('view_commande_details/{id}',[AdminController::class,'commande_details'])->middleware(['auth','admin']);
+Route::get('acompte/{id}',[AdminController::class,'acompte'])->middleware(['auth', 'admin']);
 Route::get('encours/{id}',[AdminController::class,'encours'])->middleware(['auth', 'admin']);
 Route::get('pret/{id}',[AdminController::class,'pret'])->middleware(['auth', 'admin']);
 Route::get('recupere/{id}',[AdminController::class,'recupere'])->middleware(['auth', 'admin']);

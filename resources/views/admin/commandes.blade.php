@@ -61,7 +61,11 @@
                     @endif
                   </td>
                   <td>
+                    @if($commande->acompte == 'Acompte à payer')
+                    <a class="btn btn-warning" onclick="confirmation(event)" href="{{url('acompte',$commande->id)}}">Acompte payé</a>
+                    @else
                     <a class="btn btn-primary" href="{{url('pret',$commande->id)}}">Prête</a>
+                    @endif
                   </td>
                 </tr>
                 @endforeach
@@ -149,6 +153,24 @@
       </div>
     </div>
     <!-- JavaScript files-->
+    <script type="text/javascript">
+      function confirmation(ev) {
+        ev.preventDefault();
+        var urlToRedirect = ev.currentTarget.getAttribute('href');
+        console.log(urlToRedirect);
+        swal({
+          title:"L'acompte a bien été versé pour cette commande ?",
+          icon:"warning",
+          buttons:true,
+          dangerMode:true,
+        }).then((willCancel)=>{
+          if(willCancel) {
+            window.location.href=urlToRedirect;
+          }
+        })
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{asset('admincss/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('admincss/vendor/popper.js/umd/popper.min.js')}}"> </script>
     <script src="{{asset('admincss/vendor/bootstrap/js/bootstrap.min.js')}}"></script>

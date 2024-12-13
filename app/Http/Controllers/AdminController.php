@@ -178,6 +178,13 @@ class AdminController extends Controller {
         return view('admin.commande_details', compact('commande', 'articles'));
     }
 
+    public function acompte($id) {
+        $data = Commande::find($id);
+        $data->acompte = 'Acompte réglé';
+        $data->save();
+        return redirect('/view_commandes');
+    }
+
     public function encours($id) {
         $data = Commande::find($id);
         $data->statut = 'Commande en cours';

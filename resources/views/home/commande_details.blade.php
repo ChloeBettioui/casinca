@@ -27,6 +27,15 @@
                 </div>
                 <div class="row justify-content-between mx-1">
                     <div class="detail-box">Prix : {{number_format($commande->montant,2)}} €</div>
+                    <div class="detail-box">Acompte : 
+                        @if($commande->acompte == 'Non concerné')
+                        <span>{{$commande->acompte}}</span>
+                        @elseif($commande->acompte == 'Acompte à payer')
+                        <span class="text-danger">{{$commande->acompte}}</span>
+                        @else
+                        <span class="text-success">{{$commande->acompte}}</span>
+                        @endif
+                    </div>
                 </div>
                 <div class="row justify-content-between mx-1">
                     <div class="detail-box">Date de commande : {{$commande->date_commande}}</div>

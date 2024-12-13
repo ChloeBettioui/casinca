@@ -14,7 +14,8 @@ class Commande extends Model
         'montant',
         'commentaire',
         'date_commande',
-        'date_recuperation'
+        'date_recuperation',
+        'acompte'
     ];
 
     public function user() {

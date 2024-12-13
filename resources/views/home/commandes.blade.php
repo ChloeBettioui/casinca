@@ -26,7 +26,9 @@
                     <td>{{$commande->date_commande}}</td>
                     <td>{{$commande->date_recuperation}}</td>
                     <td>
-                    @if($commande->statut == 'Commande en cours')
+                    @if($commande->acompte == 'Acompte à payer')
+                    <span class="text-danger">{{$commande->acompte}}</span>
+                    @elseif($commande->statut == 'Commande en cours')
                     <span class="text-danger">{{$commande->statut}}</span>
                     @elseif($commande->statut == 'Prête')
                     <span class="text-warning">{{$commande->statut}}</span>

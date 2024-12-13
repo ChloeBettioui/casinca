@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('date_commande')->nullable();
             $table->string('date_recuperation')->nullable();
             $table->string('statut')->default('Panier en cours');
+            $table->string('acompte')->default('Non concerné');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

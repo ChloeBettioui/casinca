@@ -3,6 +3,7 @@
 
 <head>
     @include('home.css')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -22,6 +23,7 @@
             </tr>
             <?php
             $value=0;
+            $quantite=0;
             ?>
             @foreach ($articles as $article)
             <tr>
@@ -43,16 +45,17 @@
             </tr>
             <?php 
             $value=$value + ($article->prix * $article->quantite);
+            $quantite= ($quantite<=$article->quantite) ? $article->quantite : $quantite;
             ?>
             @endforeach
         </table>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-12 container container-bg">
-        <form action="{{url('valider_panier')}}" method="Post">
+        <form id="panier" action="{{url('valider_panier')}}" method="Post">
           @csrf
           <div>
             <label>Commentaire</label>
-            <textarea name="commentaire"></textarea>
+            <textarea name="commentaire"> {{$quantite}}</textarea>
           </div>
           <div>
             <label>Date de récupération</label>
@@ -72,6 +75,29 @@
   <!-- info section -->
   @include('home.footer')
 
+  <script type="text/javascript">
+    document.getElementById('panier').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const value = <?php echo json_encode($value); ?>;
+      const quantite = <?php echo json_encode($quantite); ?>;
+      if(value>=40 || quantite>=20){
+        Swal.fire({
+          title: 'Êtes vous sur de valider cette commande ?',
+          text: 'Votre commande dépasse les 40 € ou 20 articles identiques. Un acompte vous est demandé dans les 24h.',
+          showCancelButton: true,
+          confirmButtonColor: 'green',
+          cancelButtonColor: 'red',
+          confirmButtonText: 'Valider',
+          cancelButtonText: 'Annuler'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.submit();
+          }
+        });
+      } else {
+        this.submit();
+      }
+    });
+  </script>
 </body>
-
 </html>
