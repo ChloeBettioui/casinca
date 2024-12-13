@@ -25,7 +25,7 @@
                     </div>
                     <div class="row justify-content-between mx-1">
                         <div class="detail-box">{{$commande->user->civilite}} {{$commande->user->nom}} {{$commande->user->prenom}}</div>
-                        <div class="detail-box">Prix : {{$commande->montant}} €</div>
+                        <div class="detail-box">Prix : {{number_format($commande->montant,2)}}€</div>
                     </div>
                     <div class="row justify-content-between mx-1">
                         <div class="detail-box">{{$commande->user->telephone}}</div>
@@ -47,12 +47,12 @@
                             @foreach ($articles as $article)
                             <tr>
                             <td>{{$article->product->title}}</td>
-                            <td>{{$article->prix}} €</td>
+                            <td>{{number_format($article->prix,2)}}€</td>
                             <td>
                                 <img width="150" src="/products/{{$article->product->image}}">
                             </td>
                             <td>{{$article->quantite}}</td>
-                            <td>{{$article->prix * $article->quantite}} €</td>
+                            <td>{{number_format($article->prix * $article->quantite,2)}}€</td>
                             </tr>
                             @endforeach
                         </table>

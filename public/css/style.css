@@ -44,6 +44,11 @@ a:focus {
   padding-bottom: 90px;
 }
 
+.swal2-popup {
+  z-index: -1;
+  width: 300px !important;
+}
+
 .heading_container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -248,7 +253,7 @@ a:focus {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin: 5px 0;
+  margin: 3px 0;
 }
 
 .slider_section .btn-box {
@@ -321,7 +326,7 @@ a:focus {
   background-color: #EAD8C0;
   position: relative;
   border-radius: 20px;
-  padding: 10px;
+  padding: 5px;
   margin-top: 25px;
 }
 
@@ -340,8 +345,8 @@ a:focus {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 15px 30px;
-  height: 245px;
+  padding: 5px 20px;
+  height: 195px;
 }
 
 .shop_section .box .img-box img {

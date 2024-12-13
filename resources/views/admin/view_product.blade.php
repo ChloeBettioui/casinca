@@ -31,7 +31,7 @@
                   <td>{{$products->title}}</td>
                   <td>{{$products->description}}</td>
                   <td>{{$products->category}}</td>
-                  <td>{{$products->price}}</td>
+                  <td>{{number_format($products->price,2)}}</td>
                   <td>
                       <img height="80" src="products/{{$products->image}}">
                   </td>

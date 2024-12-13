@@ -18,16 +18,10 @@ Route::post('send_message',[HomeController::class,'send_message']);
 // product & details
 Route::get('/produit',[HomeController::class,'product'])->name('product');
 Route::get('produit_details/{id}',[HomeController::class,'product_details']);
-// cart
-Route::get('add_cart/{id}',[HomeController::class,'add_cart'])->middleware(['auth','verified']);
-Route::get('mycart',[HomeController::class,'mycart'])->middleware(['auth','verified']);
-Route::get('delete_cart/{id}',[HomeController::class,'delete_cart'])->middleware(['auth','verified']);
-// orders
-Route::post('confirm_order',[HomeController::class,'confirm_order'])->middleware(['auth','verified']);
-Route::get('/myorders',[HomeController::class,'myorders'])->middleware(['auth','verified']);
 // panier
 Route::get('update_panier/{id}',[PanierController::class,'update_panier'])->middleware(['auth','verified']);
 Route::get('panier',[PanierController::class,'index'])->middleware(['auth','verified']);
+Route::get('add_composer/{id}',[PanierController::class,'add_composer'])->middleware(['auth','verified']);
 Route::get('delete_composer/{id}',[PanierController::class,'delete_composer'])->middleware(['auth','verified']);
 Route::get('substract_composer/{id}',[PanierController::class,'substract_composer'])->middleware(['auth','verified']);
 // commandes

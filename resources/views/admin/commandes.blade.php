@@ -49,7 +49,7 @@
                   <td>
                     <a class="btn btn-warning" href="{{url('view_commande_details',$commande->id)}}">Détails</a>
                   </td>
-                  <td>{{$commande->montant}} €</td>
+                  <td>{{number_format($commande->montant,2)}} €</td>
                   <td>{{$commande->date_recuperation}}</td>
                   <td>
                     @if($commande->statut == 'Commande en cours')
@@ -87,7 +87,7 @@
                   <td>
                     <a class="btn btn-warning" href="{{url('view_commande_details',$commande->id)}}">Détails</a>
                   </td>
-                  <td>{{$commande->montant}} €</td>
+                  <td>{{number_format($commande->montant,2)}} €</td>
                   <td>{{$commande->date_recuperation}}</td>
                   <td>
                     @if($commande->statut == 'Commande en cours')
@@ -126,7 +126,7 @@
                   <td>
                     <a class="btn btn-warning" href="{{url('view_commande_details',$commande->id)}}">Détails</a>
                   </td>
-                  <td>{{$commande->montant}} €</td>
+                  <td>{{number_format($commande->montant,2)}} €</td>
                   <td>{{$commande->date_recuperation}}</td>
                   <td>
                     @if($commande->statut == 'Commande en cours')

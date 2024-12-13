@@ -22,7 +22,7 @@
                 @foreach ($commandes as $commande)
                 <tr>
                     <td>{{$commande->id}}</td>
-                    <td>{{$commande->montant}} €</td>
+                    <td>{{number_format($commande->montant,2)}} €</td>
                     <td>{{$commande->date_commande}}</td>
                     <td>{{$commande->date_recuperation}}</td>
                     <td>
