@@ -3,10 +3,9 @@
     <nav id="sidebar">
       <!-- Sidebar Header-->
       <div class="sidebar-header d-flex align-items-center">
-        <div class="avatar"><img src="{{asset('admincss/img/chloe bettioui.jpg')}}" alt="Admin" class="img-fluid rounded-circle"></div>
+        <div class="avatar"><img src="{{asset('admincss/img/photos/casinca.png')}}" alt="Admin" class="img-fluid rounded-circle"></div>
         <div class="title">
-          <h1 class="h5">Bettioui Chloé</h1>
-          <p>Casinca</p>
+          <h1 class="h5">Casinca</h1>
         </div>
       </div>
       <!-- Sidebar Navidation Menus-->

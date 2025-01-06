@@ -19,7 +19,7 @@ class PanierController extends Controller {
     public function get_commandes($userid) {
         return Commande::where('user_id',$userid)
                         ->where('statut', '!=', "Panier en cours")
-                        ->orderBy('date_recuperation', 'asc')
+                        ->orderBy('date_recuperation', 'desc')
                         ->get();
     }
 
@@ -63,6 +63,15 @@ class PanierController extends Controller {
         return $value;
     }
 
+    public function maxQuantite($panierid) {
+        $composers = $this->get_composer($panierid);
+        $value = 0;
+        foreach ($composers as $composer) {
+            $value = $value >= $composer->quantite ? $value : $composer->quantite;
+        }
+        return $value;
+    }
+
     public function create_panier($userid) {
         $commande = new commande;
         $commande->user_id = $userid;
@@ -77,6 +86,10 @@ class PanierController extends Controller {
         $commande->date_commande = now();
         $commande->date_recuperation = $request->date_recuperation;
         $commande->statut = "Commande en cours";
+        $quantite = $this->maxQuantite($commande->id);
+        if($commande->montant>=40 || $quantite >=20) {
+            $commande->acompte = "Acompte à payer";
+        }
         $commande->save();
         return redirect()->back();
     }

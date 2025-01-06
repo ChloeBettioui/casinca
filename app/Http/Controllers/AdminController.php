@@ -157,7 +157,7 @@ class AdminController extends Controller {
                 ->paginate(10);
         return view('admin.view_product', compact('product', 'search'));
     }
-    // select * from `products` where `title` LIKE '%cr%' or `description` LIKE '%cr%' limit 5
+    // select * from `products` where `title` LIKE '%cr%' or `description` LIKE '%cr%' or `category` LIKE '%cr%' limit 10
 
     public function view_commandes() {
         $commandes_encours = Commande::where('statut', 'LIKE', "Commande en cours")
@@ -229,11 +229,13 @@ class AdminController extends Controller {
         return redirect()->back();
     }
 
+    // Fonction redirection page ajout d'une annonce
     public function add_annonce() {
         $produits = Product::all();
         return view('admin.add_annonce',compact('produits'));
     }
 
+    // Fonction creation de l'annonce
     public function upload_annonce(Request $request) {
         $data = new Annonce;
         $data->actif = $request->actif == "oui" ? True : False;
@@ -251,11 +253,13 @@ class AdminController extends Controller {
         return redirect()->back();
     }
 
+    // Fonction lecture et redirection page liste des annonces
     public function view_annonces() {
         $annonces = Annonce::paginate(5);
         return view('admin.view_annonces',compact('annonces'));
     }
 
+    // Fonction supprimer une annonce
     public function delete_annonce($id) {
         $data = Annonce::find($id);
         $this->delete_image($data->image, 'annonces');
@@ -264,12 +268,14 @@ class AdminController extends Controller {
         return redirect()->back();
     }
 
+    // Fonction redirection page modifier une annonce
     public function edit_annonce($id) {
         $annonce = Annonce::find($id);
         $produits = Product::all();
         return view('admin.edit_annonce',compact('annonce', 'produits'));
     }
 
+    // Fonction modifier une annonce
     public function update_annonce(Request $request, $id) {
         $data = Annonce::find($id);
         $data->description = $request->description;

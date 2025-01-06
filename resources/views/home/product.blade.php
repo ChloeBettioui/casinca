@@ -6,7 +6,6 @@
   </head>
   <body>
     @include('home.header')
-
     <section class="shop_section">
       <div class="container px-0 py-2">
         @include('home.categorie')
@@ -36,8 +35,7 @@
     </section>
     
     @include('home.footer')
-  
-    <!-- JavaScript files-->
+      <!-- JavaScript files-->
     <script>
       const addToCartLinks = document.querySelectorAll('.ajoutpanier');
 
