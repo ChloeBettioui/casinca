@@ -32,6 +32,7 @@
                             <textearea>{{$product->description}}</textarea>
                         </h6>
                     </div>
+                    <!-- prix & panier -->
                     <div class="detail-box align-items-center">
                         <h6>Prix :
                             <span>{{number_format($product->price,2)}}€</span>
@@ -52,19 +53,18 @@
 
   <!-- JavaScript files-->
   <script>
-    const addToCartLink = document.getElementById('ajoutpanier');
-    addToCartLink.addEventListener('click', async (event) => {
+    const addLink = document.getElementById('ajoutpanier');
+    addLink.addEventListener('click', async (event) => {
         event.preventDefault();
-        const productId = addToCartLink.getAttribute('data-id');
+        const productId = addLink.getAttribute('data-id');
 
         try {
             const response = await fetch(`/update_panier/${productId}`);
-
             // Réponse à afficher
             const data = await response.json();
-
             // Afficher un message en fonction de la réponse
             if (data.error) {
+                // Message d'erreur
                 Swal.fire({
                     icon: 'error',
                     title: 'Erreur',
@@ -78,8 +78,6 @@
                     icon: 'success',
                     title: 'Succès',
                     text: data.success
-                }).then(() => {
-                    window.location.reload();
                 });
             }
         } catch (error) {

@@ -9,34 +9,34 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PanierController extends Controller {
-
+// récupère le panier de l'utilisateur
     public function get_panier($userid) {
         return Commande::where('user_id',$userid)
                         ->where('statut',"Panier en cours")
                         ->first();
     }
-
+// récupère les commandes hors panier en cours de l'utilisateur
     public function get_commandes($userid) {
         return Commande::where('user_id',$userid)
                         ->where('statut', '!=', "Panier en cours")
                         ->orderBy('date_recuperation', 'desc')
                         ->get();
     }
-
+// récupère les éléments composer d'une commande 
     public function get_composer($panierid) {
         return Composer::where('commande_id',$panierid)->get();
     }
-
+// récupère un composer via l'id du produit et de la commande
     public function get_composer_id($produitid, $panierid) {
         return Composer::where('commande_id',$panierid)
                         ->where('product_id', $produitid)
                         ->first();
     }
-
+// récupère un produit via son id
     public function get_produit_id($id) {
         return Product::find($id);
     }
-
+// compte le nombre d'article du panier
     public function count_panier() {
         if(Auth::id()) {
             $user = Auth::user();
@@ -52,7 +52,7 @@ class PanierController extends Controller {
         }
         return $count;
     }
-
+// calcul le montant du panier
     public function sommePanier($panierid) {
         $composers = $this->get_composer($panierid);
         $value = 0;
@@ -62,7 +62,7 @@ class PanierController extends Controller {
         }
         return $value;
     }
-
+// récupère la quantité maximum d'article identique
     public function maxQuantite($panierid) {
         $composers = $this->get_composer($panierid);
         $value = 0;
@@ -71,13 +71,13 @@ class PanierController extends Controller {
         }
         return $value;
     }
-
+// Création de la commande au statut Panier en cours
     public function create_panier($userid) {
         $commande = new commande;
         $commande->user_id = $userid;
         $commande->save();
     }
-
+// Changement du statut vers commande en cours et mise à jour de la commande
     public function valider_panier(Request $request) {
         $user = Auth::user();
         $commande = $this->get_panier($user->id);
@@ -93,21 +93,21 @@ class PanierController extends Controller {
         $commande->save();
         return redirect()->back();
     }
-
+// récupère l'ensemble des commandes
     public function view_commandes() {
         $user = Auth::user();
         $commandes = $this->get_commandes($user->id);
         $count=$this->count_panier();
         return view('home.commandes', compact('count','commandes'));
     }
-
+// récupère une commande via son id
     public function commande_details($id) {
         $commande = Commande::find($id);
         $articles = $this->get_composer($commande->id);
         $count=$this->count_panier();
         return view('home.commande_details', compact('count', 'commande', 'articles'));
     }
-
+// ouverture de la vue Panier
     public function index() {
         if(Auth::id()) {
             $user = Auth::user();
@@ -123,7 +123,7 @@ class PanierController extends Controller {
         }
         return view('home.panier', compact('count', 'panier', 'articles'));
     }
-
+// création de l'objet de la table de jointure commande produit
     public function create_composer($produitid, $panierid, $prix) {
         $composer = new Composer();
         $composer->commande_id = $panierid;
@@ -132,20 +132,20 @@ class PanierController extends Controller {
         $composer->prix = $prix;
         $composer->save();
     }
-
+// augmentation de la quantité dans le composer
     public function add_composer($composerid) {
         $data = Composer::find($composerid); 
         $data->quantite++;
         $data->save();
         return redirect()->back();
     }
-
+// suppression de l'objet composer
     public function delete_composer($composerid) {
         $data = Composer::find($composerid); 
         $data->delete();
         return redirect()->back();
     }
-
+// diminution de la quantité dans le composer
     public function substract_composer($composerid) {
         $data = Composer::find($composerid);
         if($data->quantite == 1) {
@@ -156,7 +156,7 @@ class PanierController extends Controller {
         }
         return redirect()->back();
     }
-
+// Fonction principal du panier, appel à la création ou modification de la commande et des composer
     public function update_panier($produitid) {
         $user = Auth::user();
         $panier = $this->get_panier($user->id);
